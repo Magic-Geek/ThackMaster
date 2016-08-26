@@ -108,7 +108,7 @@ void HelloARVideo::render()
 
                 if(frame.targets()[0].target().name() == std::string("idback") && texid[0]) {
                     video = new ARVideo;
-                    video->openVideoFile("video.mp4", texid[0]);
+                    video->openTransparentVideoFile("transparentvideo.mp4", texid[0]);
                     video_renderer = renderer[0];
                 }
                 else if(frame.targets()[0].target().name() == std::string("thackname") && texid[1]) {
@@ -116,11 +116,7 @@ void HelloARVideo::render()
                     video->openTransparentVideoFile("home.mp4", texid[1]);
                     video_renderer = renderer[1];
                 }
-                else if(frame.targets()[0].target().name() == std::string("qrcode") && texid[2]) {
-                    video = new ARVideo;
-                    video->openTransparentVideoFile("transparentvideo.mp4", texid[2]);
-                    video_renderer = renderer[2];
-                }
+
             }
             if (video) {
                 video->onFound();
