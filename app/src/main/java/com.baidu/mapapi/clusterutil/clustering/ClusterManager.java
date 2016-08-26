@@ -185,7 +185,7 @@ public class ClusterManager<T extends ClusterItem> implements
 
     @Override
     public void onMapStatusChangeFinish(MapStatus mapStatus) {
-        if (mapStatus.zoom>7) {
+        if (mapStatus.zoom>9) {
             controlCityOverlay.hideCity();
         }else{
             controlCityOverlay.showCity();

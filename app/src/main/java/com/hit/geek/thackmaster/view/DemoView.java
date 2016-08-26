@@ -34,6 +34,8 @@ public class DemoView implements View{
                 .position(element.getData().point)
                 .icon(bitmap).title(element.getData().id);
         icon = mBaiduMap.addOverlay(option);
+        icon.setZIndex(element.getData().getZIndex());
+        icon.setExtraInfo(element.getData().genExtraInfo());
         OverlayOptions textOption = new TextOptions()
                 .bgColor(0xAAFFFF00)
                 .fontSize(24)
@@ -42,6 +44,7 @@ public class DemoView implements View{
                 .rotate(0)
                 .position(element.getData().point);
         text = mBaiduMap.addOverlay(textOption);
+        text.setZIndex(element.getData().getZIndex());
         if(element.getData().children!=null&&element.getData().children.size()!=0){
             List<MarkerChild> markerChildren = new ArrayList<MarkerChild>();
             for(MarkerBean child : element.getData().children){
