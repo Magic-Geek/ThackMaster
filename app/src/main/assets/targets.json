@@ -1,0 +1,19 @@
+{
+  "images" :
+  [
+    {
+      "image" : "thackname.jpg",
+      "name" : "thackname"
+    },
+    {
+      "image" : "qrcode.png",
+      "name" : "qrcode"
+    },
+    {
+      "image" : "idback.jpg",
+      "name" : "idback",
+      "size" : [8.56, 5.4],
+      "uid" : "uid-string"
+    }
+  ]
+}
