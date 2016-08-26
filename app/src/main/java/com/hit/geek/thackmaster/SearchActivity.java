@@ -29,10 +29,14 @@ public class SearchActivity extends AppCompatActivity {
 
     private EditText dateEditText;
     private Button dateButton;
+    private EditText timeEditText;
+    private Button timeButton;
 
-    private static int year;
-    private static int month;
-    private static int day;
+    private static int departYear;
+    private static int departMonth;
+    private static int departDay;
+
+
 
     public static final String[] departList = {"北京","杭州","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
     public static final String[] arriveList = {"北京","杭州","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
@@ -107,19 +111,28 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                        SearchActivity.year=year;
-                        SearchActivity.month=monthOfYear+1;
-                        SearchActivity.day=dayOfMonth;
+                        SearchActivity.departYear=year;
+                        SearchActivity.departMonth=monthOfYear+1;
+                        SearchActivity.departDay=dayOfMonth;
 
-                        dateEditText.setText(year+"-"+month+"-"+day);
+                        dateEditText.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
                     }
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
 
+        timeEditText = (EditText)findViewById(R.id.time_edittext);
+        timeButton = (Button)findViewById(R.id.time_button);
 
-
+//        timeButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                new TimePickerDialog(SearchActivity.this,new TimePickerDialog.OnTimeSetListener(){
+//
+//                })
+//            }
+//        });
 
     }
 }
