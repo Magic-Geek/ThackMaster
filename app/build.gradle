@@ -29,7 +29,7 @@ model {
         create("signConfig") {
             keyAlias = 'gofind'
             keyPassword = 'wangyi601466673'
-            storeFile  = file("./gofind.jks")
+            storeFile  = file("../gofind.jks")
             storePassword = 'wangyi601466673'
             signConf = it
         }
@@ -65,7 +65,7 @@ model {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: '../package/Android/libs')
+    compile fileTree(dir: '../package/Android/libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
@@ -75,4 +75,7 @@ dependencies {
 
 //    compile 'com.github.hotchemi:permissionsdispatcher:2.0.8'
 //    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.0.8'
+    compile files('src/main/jniLibs/BaiduLBS_Android.jar')
+    compile files('src/main/jniLibs/gson-2.3.1.jar')
+
 }
