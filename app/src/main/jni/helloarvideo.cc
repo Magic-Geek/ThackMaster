@@ -113,7 +113,7 @@ void HelloARVideo::render()
                 }
                 else if(frame.targets()[0].target().name() == std::string("thackname") && texid[1]) {
                     video = new ARVideo;
-                    video->openTransparentVideoFile("transparentvideo.mp4", texid[1]);
+                    video->openTransparentVideoFile("home.mp4", texid[1]);
                     video_renderer = renderer[1];
                 }
                 else if(frame.targets()[0].target().name() == std::string("qrcode") && texid[2]) {
@@ -163,7 +163,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeInit(JNIEnv*, jobject))
 {
     bool status = ar.initCamera();
     ar.loadAllFromJsonFile("targets.json");
-    ar.loadFromImage("namecard.jpg");
+//    ar.loadFromImage("namecard.jpg");
 
     status &= ar.start();
     return status;
