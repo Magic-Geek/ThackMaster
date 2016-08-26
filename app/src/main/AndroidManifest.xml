@@ -32,7 +32,7 @@
         android:name="com.hit.geek.thackmaster.ThackMaster">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="CwUhFGMFXtc82pBt6ROR8INV2a7Txwai" />
+            android:value="Z3z0v8pBrQVb1yfq0cIGElMS33flml39" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme">
