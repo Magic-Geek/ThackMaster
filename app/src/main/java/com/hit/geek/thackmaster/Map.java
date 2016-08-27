@@ -3,6 +3,7 @@ package com.hit.geek.thackmaster;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -56,10 +57,12 @@ public class Map implements ClusterManager.ControlCityOverlay {
     List<Element> elements;
     Overlay person;
     Context context;
+    Handler handler;
 
-    public Map(Context context, final TextureMapView mapView, final String start, final String end){
+    public Map(Context context, Handler handler ,final TextureMapView mapView, final String start, final String end){
         this.mapView = mapView;
         this.context = context;
+        this.handler = handler;
 
         clusterManager = new ClusterManager(context,mapView.getMap());
         clusterManager.setControlCityOverlayInterface(this);
@@ -112,6 +115,8 @@ public class Map implements ClusterManager.ControlCityOverlay {
         for(MarkerBean bean : data){
             final Element element = BluePrintFactory.createElement(bean);
             element.getView().onDraw(mapView.getMap(),clusterManager);
+            if(isCityShow&&!element.getData().type.equals("CITY")&&!element.getData().id.equals("line0"))
+                element.getView().switchVisible(mapView.getMap());
             elements.add(element);
             points.add(bean.point);
         }
@@ -153,7 +158,7 @@ public class Map implements ClusterManager.ControlCityOverlay {
 
                 for(Element m:elements){
                     if(m.getData().id.equals(id)){
-                        m.getAction().onClick();
+                        m.getAction().onClick(context,handler);
                         break;
                     }
                 }
@@ -215,7 +220,6 @@ public class Map implements ClusterManager.ControlCityOverlay {
         if(isCityShow){
             isCityShow = false;
             for(Element ele : elements){
-                if(ele.getData().type.equals("CITY")||ele.getData().id.equals("line0"))
                     ele.getView().switchVisible(mapView.getMap());
             }
         }
@@ -226,7 +230,6 @@ public class Map implements ClusterManager.ControlCityOverlay {
         if(!isCityShow){
             isCityShow = true;
             for(Element ele : elements){
-                if(ele.getData().type.equals("CITY")||ele.getData().id.equals("line0"))
                     ele.getView().switchVisible(mapView.getMap());
             }
         }

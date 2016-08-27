@@ -4,10 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,18 +24,54 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.model.LatLng;
+import com.hit.geek.thackmaster.adapter.ItemPagerAdapter;
+import com.hit.geek.thackmaster.bottomsheet.BottomSheetBehaviorGoogleMapsLike;
+import com.hit.geek.thackmaster.bottomsheet.RoadItemAdapter;
+import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
+import com.hit.geek.thackmaster.define.Trace;
+import com.hit.geek.thackmaster.define.Road;
 import com.hit.geek.thackmaster.http.AnShengApi;
+import com.hit.geek.thackmaster.http.ServerApi;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int[] sightPictures = {
+            R.drawable.cheese_3,
+            R.drawable.cheese_3,
+            R.drawable.cheese_3,
+            R.drawable.cheese_3,
+            R.drawable.cheese_3,
+            R.drawable.cheese_3
+    };
+
+    private TextView tripGoalText;
+    private TextView tripDistanceText;
+    private TextView tripTimeText;
+
+    RecyclerView recyclerview;
+
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
+    final static int GETINFOOFALLSPOTS = 2;
+    final static int GETTRACE = 3;
+    final static int STARTSCENIVPICACT = 9;
 
     List<PrepareData> dataList = new ArrayList<>();
+    List<MarkerBean> markers = new ArrayList<>();
+    List<MarkerBean> lines = new ArrayList<>();
+    Trace trace = new Trace();
+
+    List<Road> items;
 
     Handler handler = new Handler(){
         @Override
@@ -58,6 +100,45 @@ public class MainActivity extends AppCompatActivity {
                 case GETINFOBYANSHENGAPI:
                     dataList = (List<PrepareData>) msg.obj;
                     break;
+                case GETINFOOFALLSPOTS:
+                    markers = (List<MarkerBean>) msg.obj;
+                    map.draw(markers);
+                    break;
+                case STARTSCENIVPICACT:
+                    Intent intent = new Intent(MainActivity.this, ARActivity.class);
+                    intent.putExtra("id",(String)msg.obj);
+                    startActivity(intent);
+                    break;
+                case GETTRACE:
+                    trace = (Trace) msg.obj;
+                    List<MarkerBean> lines = new ArrayList<>();
+                    for(int i=0;i<trace.economyArray.length();i++){
+                        JSONObject o = trace.fast(i);
+                        List<MarkerBean> points = new ArrayList<>();
+                        if(o.has("path")){
+                            try {
+                                JSONArray array = o.getJSONArray("path");
+                                String detail = o.getString("detail");
+                                for(int j=0;j<array.length();j++){
+                                    JSONObject oo = array.getJSONObject(j);
+                                    LatLng point = new LatLng(
+                                            oo.getDouble("latitude"),
+                                            oo.getDouble("longitude")
+                                    );
+                                    MarkerBean markerBean = new MarkerBean("cline"+j,"SOMETHING",point);
+                                    points.add(markerBean);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            MarkerBean markerBean = new MarkerBean("fLINE"+i,"LINE",null);
+                            markerBean.children = points;
+                            lines.add(markerBean);
+                        }
+                    }
+                    map.draw(lines);
+                    break;
             }
         }
     };
@@ -70,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         mMapView = (TextureMapView) findViewById(R.id.mapView);
@@ -82,8 +165,12 @@ public class MainActivity extends AppCompatActivity {
         String to = intent.getStringExtra("to");
         String time = intent.getStringExtra("time");
 
-        map = new Map(this,mMapView,from,to);
+
+        map = new Map(this,handler,mMapView,from,to);
         AnShengApi.GetKnowledge(to,handler);
+        ServerApi.GetSpots(handler);
+        ServerApi.GetTrace(handler);
+
 
         Button close = (Button) findViewById(R.id.close);
         title = (TextView) findViewById(R.id.title);
@@ -96,14 +183,75 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        /**
+         * If we want to listen for states callback
+         */
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
+        final BottomSheetBehaviorGoogleMapsLike behavior = BottomSheetBehaviorGoogleMapsLike.from(bottomSheet);
+        behavior.addBottomSheetCallback(new BottomSheetBehaviorGoogleMapsLike.BottomSheetCallback() {
             @Override
-            public void onClick(View view) {
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED:
+                        Log.d("bottomsheet-", "STATE_COLLAPSED");
+                        break;
+                    case BottomSheetBehaviorGoogleMapsLike.STATE_DRAGGING:
+                        Log.d("bottomsheet-", "STATE_DRAGGING");
+                        break;
+                    case BottomSheetBehaviorGoogleMapsLike.STATE_EXPANDED:
+                        Log.d("bottomsheet-", "STATE_EXPANDED");
+                        break;
+                    case BottomSheetBehaviorGoogleMapsLike.STATE_ANCHOR_POINT:
+                        Log.d("bottomsheet-", "STATE_ANCHOR_POINT");
+                        break;
+                    case BottomSheetBehaviorGoogleMapsLike.STATE_HIDDEN:
+                        Log.d("bottomsheet-", "STATE_HIDDEN");
+                        break;
+                    default:
+                        Log.d("bottomsheet-", "STATE_SETTLING");
+                        break;
+                }
+            }
 
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             }
         });
+
+//        AppBarLayout mergedAppBarLayout = (AppBarLayout) findViewById(R.id.merged_appbarlayout);
+//        MergedAppBarLayoutBehavior mergedAppBarLayoutBehavior = MergedAppBarLayoutBehavior.from(mergedAppBarLayout);
+//        mergedAppBarLayoutBehavior.setToolbarTitle("选择出行线路");
+//        mergedAppBarLayoutBehavior.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                behavior.setState(BottomSheetBehaviorGoogleMapsLike.STATE_COLLAPSED);
+//            }
+//        });
+
+        tripGoalText = (TextView) bottomSheet.findViewById(R.id.tripgoal_textview);
+        tripDistanceText = (TextView)bottomSheet.findViewById(R.id.tripdistance_textview);
+        tripTimeText = (TextView)bottomSheet.findViewById(R.id.triptime_textview);
+
+        ItemPagerAdapter sightAdapter = new ItemPagerAdapter(this,sightPictures);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.sight_viewpager);
+        viewPager.setAdapter(sightAdapter);
+
+        recyclerview = (RecyclerView)findViewById(R.id.road_recyclerview);
+        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(this);
+        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        recyclerview.setHasFixedSize(true);
+        recyclerview.setItemAnimator(new DefaultItemAnimator());
+
+        items = new ArrayList<>();
+        addRoadItems();
+        final RoadItemAdapter myadapter = new RoadItemAdapter(items);
+        recyclerview.setAdapter(myadapter);
+
+    }
+
+    public void addRoadItems(){
+
     }
 
     @Override

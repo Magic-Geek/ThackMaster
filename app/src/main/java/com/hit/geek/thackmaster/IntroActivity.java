@@ -8,7 +8,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.baidu.mapapi.SDKInitializer;
 import com.hit.geek.thackmaster.adapter.IntroAdapter;
 import java.util.ArrayList;
 
@@ -23,7 +22,6 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_intro);
 
         Map.writeConfigFile(this);
@@ -38,10 +36,7 @@ public class IntroActivity extends AppCompatActivity {
                 spanCount,
                 StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLayoutManager);
-        for (int i = 0; i < 100; i++) {
-            items.add("i:" + i);
-        }
-        adapter = new IntroAdapter(items);
+        adapter = new IntroAdapter();
         recyclerView.setAdapter(adapter);
     }
 

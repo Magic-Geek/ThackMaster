@@ -1,23 +1,48 @@
 package com.hit.geek.thackmaster.adapter;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hit.geek.thackmaster.R;
 
+import org.xutils.x;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by eason on 8/27/16.
  */
 public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.viewHolder> {
-    private ArrayList<String> items = new ArrayList<>();
-
-    public IntroAdapter(ArrayList<String> items) {
-        this.items = items;
+    private int[] image = new int[]{
+            R.mipmap.a1,
+            R.mipmap.a2,
+            R.mipmap.a3,
+            R.mipmap.a4,
+            R.mipmap.a5,
+            R.mipmap.a6,
+            R.mipmap.a7,
+            R.mipmap.a8,
+            R.mipmap.a9,
+            R.mipmap.a10,
+            R.mipmap.a11,
+            R.mipmap.a12,
+            R.mipmap.a13,
+            R.mipmap.a14,
+    };
+    private int[] colorIndex = new int[]{R.color.color1,R.color.color2,R.color.color3,R.color.color4,R.color.color5,R.color.color6};
+    public IntroAdapter() {
     }
 
     @Override
@@ -34,17 +59,19 @@ public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.viewHolder> 
 
     @Override
     public void onBindViewHolder(viewHolder viewHolder, int position) {
-        String info = items.get(position);
         View view = viewHolder.itemView;
         TextView textView = (TextView) view.findViewById(R.id.info_text);
-        textView.setText(info);
-        //手动更改高度，不同位置的高度有所不同
-        textView.setHeight(100 + (position % 3) * 30);
+        ImageView imageView = (ImageView) view.findViewById(R.id.info_image);
+        LinearLayout container = (LinearLayout) view.findViewById(R.id.container);
+        textView.setText("简 介");
+        int color = colorIndex[position%6];
+        container.setBackgroundResource(color);
+        imageView.setImageResource(image[position]);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return image.length-1;
     }
 
     class viewHolder extends RecyclerView.ViewHolder {

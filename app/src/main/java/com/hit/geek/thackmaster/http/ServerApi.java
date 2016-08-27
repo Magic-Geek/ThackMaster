@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.hit.geek.thackmaster.define.HotelDetail;
 import com.hit.geek.thackmaster.define.MarkerBean;
+import com.hit.geek.thackmaster.define.Trace;
 import com.hit.geek.thackmaster.utils.HttpsUtils;
 
 import org.xutils.common.Callback;
@@ -17,8 +18,8 @@ import java.util.List;
 public class ServerApi {
     public static String host = "http://123.206.220.49";
 
-    public static void GetTrace(){
-        HttpsUtils.Get("/api/trace", null, new Callback.CommonCallback<MarkerBean>(){
+    public static void GetTrace(final Handler handler){
+        HttpsUtils.Get(host+"/api/trace", null, new Callback.CommonCallback<Trace>(){
 
             @Override
             public void onCancelled(CancelledException arg0) {}
@@ -33,16 +34,16 @@ public class ServerApi {
             }
 
             @Override
-            public void onSuccess(MarkerBean result) {
+            public void onSuccess(Trace result) {
                 // TODO Auto-generated method stub
-
+                handler.obtainMessage(3,result).sendToTarget();
             }
 
         });
     }
 
-    public static void GetHotels(){
-        HttpsUtils.Get("/api/hotel", null, new Callback.CommonCallback<MarkerBean>(){
+    public static void GetSpots(final Handler handler){
+        HttpsUtils.Get(host+"/api/hotel", null, new Callback.CommonCallback<List<MarkerBean>>(){
 
             @Override
             public void onCancelled(CancelledException arg0) {}
@@ -57,9 +58,9 @@ public class ServerApi {
             }
 
             @Override
-            public void onSuccess(MarkerBean result) {
+            public void onSuccess(List<MarkerBean> result) {
                 // TODO Auto-generated method stub
-
+                handler.obtainMessage(2,result).sendToTarget();
             }
 
         });
@@ -90,7 +91,7 @@ public class ServerApi {
     }
 
     public static  void GetHotel(String id) {
-        HttpsUtils.Get("/api/hotel/" + id, null, new Callback.CommonCallback<HotelDetail>() {
+        HttpsUtils.Get(host+"/api/hotel/" + id, null, new Callback.CommonCallback<HotelDetail>() {
 
             @Override
             public void onCancelled(Callback.CancelledException arg0) {
