@@ -3,6 +3,7 @@ package com.hit.geek.thackmaster.define;
 import android.os.Bundle;
 
 import com.baidu.mapapi.model.LatLng;
+import com.hit.geek.thackmaster.R;
 import com.hit.geek.thackmaster.utils.JsonResponseParser;
 
 import org.xutils.http.annotation.HttpResponse;
@@ -25,7 +26,7 @@ public class MarkerBean {
     public String id;
     public LatLng point;
     public String type;
-    public int advice;
+    public int advise;
     public String name;
     public List<MarkerBean> children = new ArrayList<>();
 
@@ -33,12 +34,15 @@ public class MarkerBean {
         Bundle mBundle = new Bundle();
         mBundle.putString("id",id);
         mBundle.putString("type",type);
-        mBundle.putInt("advice",advice);
+        mBundle.putInt("advice",advise);
         return mBundle;
     }
 
     public int getResourceId(){
-        return BluePrint.valueOf(type).resource;
+        int id = BluePrint.valueOf(type).resource;
+
+        if(type.equals("HOTEL")&&advise==1) id = R.drawable.advise;
+        return id;
     }
 
     public int getZIndex(){

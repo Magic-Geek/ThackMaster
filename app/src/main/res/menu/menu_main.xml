@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item
         android:id="@+id/message"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/message"
         android:orderInCategory="90"
         android:title="提示"
         app:showAsAction="ifRoom" />

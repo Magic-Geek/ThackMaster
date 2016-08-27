@@ -8,7 +8,7 @@ import com.hit.geek.thackmaster.struct.Element;
 /**
  * Created by eason on 8/27/16.
  */
-public class ScenicAction implements Action{
+public class HotelAction implements Action{
     Element element;
     @Override
     public void setElement(Element element) {
@@ -16,7 +16,7 @@ public class ScenicAction implements Action{
     }
 
     @Override
-    public void onClick(Context context,Handler handler) {
-        handler.obtainMessage(9,element.getData().id).sendToTarget();
+    public void onClick(Context context, Handler handler) {
+        handler.obtainMessage(10,element.getData().id).sendToTarget();
     }
 }

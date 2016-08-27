@@ -3,6 +3,7 @@ package com.hit.geek.thackmaster.define;
 import com.hit.geek.thackmaster.R;
 import com.hit.geek.thackmaster.action.Action;
 import com.hit.geek.thackmaster.action.DemoAction;
+import com.hit.geek.thackmaster.action.HotelAction;
 import com.hit.geek.thackmaster.action.ScenicAction;
 import com.hit.geek.thackmaster.view.DemoView;
 import com.hit.geek.thackmaster.view.LineView;
@@ -14,7 +15,7 @@ import com.hit.geek.thackmaster.view.View;
 public enum BluePrint {
     SOMETHING(DemoAction.class,DemoView.class, R.mipmap.ic_launcher,7),
     CITY(DemoAction.class,DemoView.class,R.drawable.city,7),
-    HOTEL(DemoAction.class,DemoView.class,R.drawable.hotel,5),
+    HOTEL(HotelAction.class,DemoView.class,R.drawable.hotel,5),
     SPOT(ScenicAction.class,DemoView.class,R.drawable.scenic,5),
     LINE(DemoAction.class,LineView.class,R.color.primary_dark,4);
 

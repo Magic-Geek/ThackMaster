@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     final static int GETINFOOFALLSPOTS = 2;
     final static int GETTRACE = 3;
     final static int STARTSCENIVPICACT = 9;
+    final static int STARTHOTELACT = 10;
 
     List<PrepareData> dataList = new ArrayList<>();
     List<MarkerBean> markers = new ArrayList<>();
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     map.draw(markers);
                     break;
                 case STARTSCENIVPICACT:
-                    Intent intent = new Intent(MainActivity.this, ARActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ScenicPicActivity.class);
                     intent.putExtra("id",(String)msg.obj);
                     startActivity(intent);
                     break;
@@ -113,12 +114,11 @@ public class MainActivity extends AppCompatActivity {
                     trace = (Trace) msg.obj;
                     List<MarkerBean> lines = new ArrayList<>();
                     for(int i=0;i<trace.economyArray.length();i++){
-                        JSONObject o = trace.fast(i);
+                        JSONObject o = trace.economy(i);
                         List<MarkerBean> points = new ArrayList<>();
                         if(o.has("path")){
                             try {
                                 JSONArray array = o.getJSONArray("path");
-                                String detail = o.getString("detail");
                                 for(int j=0;j<array.length();j++){
                                     JSONObject oo = array.getJSONObject(j);
                                     LatLng point = new LatLng(
@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     map.draw(lines);
+                    break;
+                case STARTHOTELACT:
                     break;
             }
         }
