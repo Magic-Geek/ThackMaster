@@ -10,6 +10,22 @@
       "name" : "thackname2"
     },
     {
+      "image" : "dasha.jpg",
+      "name" : "dasha"
+    },
+    {
+      "image" : "alitrip.jpg",
+      "name" : "alitrip"
+    },
+    {
+      "image" : "amadeus.jpg",
+      "name" : "amadeus"
+    },
+    {
+      "image" : "booking.jpg",
+      "name" : "booking"
+    },
+    {
       "image" : "idback.jpg",
       "name" : "idback",
       "size" : [8.56, 5.4],

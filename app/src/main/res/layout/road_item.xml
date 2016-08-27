@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/d_textview"
+                android:id="@+id/td_textview"
                 android:text="当前位置"
                 android:textSize="15sp"
                 android:layout_marginTop="5dp"/>
@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/a_textview"
+                android:id="@+id/ta_textview"
                 android:text="地铁站"
                 android:textSize="15sp"
                 android:layout_marginBottom="5dp"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="飞机"
                 android:textSize="30sp"
-                android:id="@+id/type_textview"
+                android:id="@+id/ttype_textview"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="2h 30min"
                 android:textSize="20sp"
-                android:id="@+id/time_textview"
+                android:id="@+id/ttime_textview"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="00dp"/>
 

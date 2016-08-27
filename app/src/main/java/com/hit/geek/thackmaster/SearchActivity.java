@@ -40,8 +40,8 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
-    public static final String[] departList = {"北京","杭州","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
-    public static final String[] arriveList = {"北京","杭州","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
+    public static final String[] departList = {"北京","杭州","上海","南京","哈尔滨","太原","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
+    public static final String[] arriveList = {"北京","杭州","上海","南京","哈尔滨","太原","西雅图","旧金山","拉斯维加斯","莫斯科","伦敦"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

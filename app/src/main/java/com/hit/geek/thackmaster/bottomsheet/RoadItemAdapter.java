@@ -2,6 +2,7 @@ package com.hit.geek.thackmaster.bottomsheet;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,10 @@ public class RoadItemAdapter extends RecyclerView.Adapter<RoadItemAdapter.RoadVi
         return new RoadViewHolder(itemView);
     }
 
-    @Override public void onBindViewHolder(RoadViewHolder viewHolder, int position) {
+    @Override public void onBindViewHolder(final RoadViewHolder viewHolder, final int position) {
 //        viewHolder.textView.setText(items.get(position));
         Road item = items.get(position);
+        Log.i("test",item.getDepartPlace());
         viewHolder.dTextView.setText(item.getDepartPlace());
         viewHolder.aTextView.setText(item.getArrivePlace());
         viewHolder.typeTextView.setText(item.getTransprotType());
@@ -53,10 +55,11 @@ public class RoadItemAdapter extends RecyclerView.Adapter<RoadItemAdapter.RoadVi
         public RoadViewHolder(View itemView) {
             super(itemView);
 
-            dTextView = (TextView)itemView.findViewById(R.id.d_textview);
-            aTextView = (TextView)itemView.findViewById(R.id.a_textview);
-            typeTextView = (TextView)itemView.findViewById(R.id.type_textview);
-            timeTextView = (TextView)itemView.findViewById(R.id.time_edittext);
+            dTextView = (TextView)itemView.findViewById(R.id.td_textview);
+//            dTextView.setText("some");
+            aTextView = (TextView)itemView.findViewById(R.id.ta_textview);
+            typeTextView = (TextView)itemView.findViewById(R.id.ttype_textview);
+            timeTextView = (TextView)itemView.findViewById(R.id.ttime_textview);
 
 
         }

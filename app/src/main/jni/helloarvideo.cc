@@ -33,7 +33,7 @@ public:
     virtual void render();
     virtual bool clear();
 private:
-    const static int targetNum = 3;
+    const static int targetNum = 7;
     Vec2I view_size;
     VideoRenderer* renderer[targetNum];
     int tracked_target;
@@ -113,13 +113,33 @@ void HelloARVideo::render()
                 }
                 else if(frame.targets()[0].target().name() == std::string("thackname") && texid[1]) {
                     video = new ARVideo;
-                    video->openTransparentVideoFile("home.mp4", texid[1]);
+                    video->openTransparentVideoFile("transparentvideo.mp4", texid[1]);
                     video_renderer = renderer[1];
                 }
                 else if(frame.targets()[0].target().name() == std::string("thackname2") && texid[2]) {
                     video = new ARVideo;
-                    video->openTransparentVideoFile("home.mp4", texid[2]);
+                    video->openVideoFile("xihu.mp4", texid[2]);
                     video_renderer = renderer[2];
+                }
+                else if(frame.targets()[0].target().name() == std::string("dasha") && texid[3]) {
+                    video = new ARVideo;
+                    video->openVideoFile("xihu.mp4", texid[3]);
+                    video_renderer = renderer[3];
+                }
+                else if(frame.targets()[0].target().name() == std::string("alitrip") && texid[4]) {
+                    video = new ARVideo;
+                    video->openVideoFile("xihu.mp4", texid[4]);
+                    video_renderer = renderer[4];
+                }
+                else if(frame.targets()[0].target().name() == std::string("booking") && texid[5]) {
+                    video = new ARVideo;
+                    video->openTransparentVideoFile("home.mp4", texid[5]);
+                    video_renderer = renderer[5];
+                }
+                else if(frame.targets()[0].target().name() == std::string("amadeus") && texid[6]) {
+                    video = new ARVideo;
+                    video->openTransparentVideoFile("home.mp4", texid[6]);
+                    video_renderer = renderer[6];
                 }
 
             }

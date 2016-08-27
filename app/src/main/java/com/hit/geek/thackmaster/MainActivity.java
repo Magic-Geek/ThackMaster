@@ -9,9 +9,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,11 +24,10 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.hit.geek.thackmaster.adapter.ItemPagerAdapter;
 import com.hit.geek.thackmaster.bottomsheet.BottomSheetBehaviorGoogleMapsLike;
-import com.hit.geek.thackmaster.bottomsheet.RoadItemAdapter;
 import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
-import com.hit.geek.thackmaster.define.Trace;
 import com.hit.geek.thackmaster.define.Road;
+import com.hit.geek.thackmaster.define.Trace;
 import com.hit.geek.thackmaster.http.AnShengApi;
 import com.hit.geek.thackmaster.http.ServerApi;
 
@@ -46,11 +42,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private int[] sightPictures = {
-            R.drawable.cheese_3,
-            R.drawable.cheese_3,
-            R.drawable.cheese_3,
-            R.drawable.cheese_3,
-            R.drawable.cheese_3,
+//            R.drawable.hz2,
+            R.drawable.hz1,
+//            R.drawable.hz3,
             R.drawable.cheese_3
     };
 
@@ -58,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tripDistanceText;
     private TextView tripTimeText;
 
-    RecyclerView recyclerview;
+//    RecyclerView recyclerview;
 
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
@@ -71,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     List<MarkerBean> lines = new ArrayList<>();
     Trace trace = new Trace();
 
-    List<Road> items;
+    List<Road> items = new ArrayList<>();
 
     Handler handler = new Handler(){
         @Override
@@ -236,22 +230,31 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.sight_viewpager);
         viewPager.setAdapter(sightAdapter);
 
-        recyclerview = (RecyclerView)findViewById(R.id.road_recyclerview);
-        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(this);
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        recyclerview.setHasFixedSize(true);
-        recyclerview.setItemAnimator(new DefaultItemAnimator());
-
-        items = new ArrayList<>();
-        addRoadItems();
-        final RoadItemAdapter myadapter = new RoadItemAdapter(items);
-        recyclerview.setAdapter(myadapter);
-
-    }
-
-    public void addRoadItems(){
+//        recyclerview = (RecyclerView)findViewById(R.id.road_recyclerview);
+//        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(this);
+//        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerview.setHasFixedSize(true);
+//        recyclerview.setItemAnimator(new DefaultItemAnimator());
+//
+//        addRoadItems();
+//        RoadItemAdapter myadapter = new RoadItemAdapter(items);
+//        recyclerview.setAdapter(myadapter);
 
     }
+
+//    public void addRoadItems(){
+//
+//        items.add(new Road("当前位置","五道口站","10min","步行"));
+//        items.add(new Road("五道口站","知春路站","5min","地铁13号线"));
+//        items.add(new Road("知春路站","三元桥站","25min","地铁10号线"));
+//        items.add(new Road("三元桥站","T3航站楼","5min","机场线"));
+//        items.add(new Road("首都国际机场","萧山国际机场","2h 15min","飞机"));
+//        items.add(new Road("萧山国际机场","平海路","1h 14min","机场大巴"));
+//        items.add(new Road("平海路","棚桥","2min","步行"));
+//        items.add(new Road("棚桥","钱王祠","7min","38路"));
+//        items.add(new Road("钱王祠","目的地","7min","步行"));
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
