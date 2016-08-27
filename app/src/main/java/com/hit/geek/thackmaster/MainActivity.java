@@ -21,8 +21,11 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.hit.geek.thackmaster.action.ScenicAction;
 import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
+import com.hit.geek.thackmaster.define.Trace;
 import com.hit.geek.thackmaster.http.AnShengApi;
 import com.hit.geek.thackmaster.http.ServerApi;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
     final static int GETINFOOFALLSPOTS = 2;
+    final static int GETTRACE = 3;
     final static int STARTSCENIVPICACT = 9;
 
     List<PrepareData> dataList = new ArrayList<>();
     List<MarkerBean> markers = new ArrayList<>();
+    Trace trace = new Trace();
 
     Handler handler = new Handler(){
         @Override
@@ -73,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("id",(String)msg.obj);
                     startActivity(intent);
                     break;
+                case GETTRACE:
+                    trace = (Trace) msg.obj;
+                    JSONObject o1 = trace.economy(0);
+                    JSONObject o2 = trace.fast(1);
+                    break;
             }
         }
     };
@@ -102,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         map = new Map(this,handler,mMapView,from,to);
         AnShengApi.GetKnowledge(to,handler);
         ServerApi.GetSpots(handler);
+        ServerApi.GetTrace(handler);
 
         Button close = (Button) findViewById(R.id.close);
         title = (TextView) findViewById(R.id.title);
