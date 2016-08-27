@@ -33,13 +33,16 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vqmyQrGqDhMyVsqaEmKEXMVQDame5Tye" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+        <activity android:name=".IntroActivity"
+                  android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme">
         </activity>
 
         <activity
