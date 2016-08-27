@@ -1,4 +1,5 @@
 apply plugin: 'com.android.model.application'
+//apply plugin: 'org.bitbucket.pvoid.android-apt'
 model {
 
     def signConf
@@ -20,6 +21,9 @@ model {
         release {
             minifyEnabled = false
             proguardFiles.add(file("proguard-rules.pro"))
+            signingConfig = signConf
+        }
+        debug {
             signingConfig = signConf
         }
     }
@@ -73,4 +77,5 @@ dependencies {
     compile 'org.xutils:xutils:3.3.36'
     compile files('src/main/jniLibs/BaiduLBS_Android.jar')
     compile files('src/main/jniLibs/gson-2.3.1.jar')
+
 }

@@ -32,14 +32,17 @@
         android:name="com.hit.geek.thackmaster.ThackMaster">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="CwUhFGMFXtc82pBt6ROR8INV2a7Txwai" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:value="vqmyQrGqDhMyVsqaEmKEXMVQDame5Tye" />
+        <activity android:name=".IntroActivity"
+                  android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme">
         </activity>
 
         <activity

@@ -1,5 +1,6 @@
 package com.hit.geek.thackmaster.http;
 
+import android.os.Handler;
 import android.util.Log;
 
 import com.hit.geek.thackmaster.define.AnShengJson;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class AnShengApi {
     public static String host = "http://test.portal.axadirect.com.cn/campus/Home/Index";
 
-    public static void GetKnowledge(String keywords){
+    public static void GetKnowledge(String keywords, final Handler handler){
         long timeStamp = System.currentTimeMillis();
         String pid = "1000109010703273872";
         String secret = "";
@@ -45,7 +46,7 @@ public class AnShengApi {
             @Override
             public void onSuccess(AnShengJson result) {
                 // TODO Auto-generated method stub
-                Log.i("success","json get");
+                handler.obtainMessage(1,result.data.list).sendToTarget();
             }
 
         });
