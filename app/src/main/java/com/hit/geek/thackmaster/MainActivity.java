@@ -113,11 +113,12 @@ public class MainActivity extends AppCompatActivity {
                     trace = (Trace) msg.obj;
                     List<MarkerBean> lines = new ArrayList<>();
                     for(int i=0;i<trace.economyArray.length();i++){
-                        JSONObject o = trace.economy(i);
+                        JSONObject o = trace.fast(i);
                         List<MarkerBean> points = new ArrayList<>();
                         if(o.has("path")){
                             try {
                                 JSONArray array = o.getJSONArray("path");
+                                String detail = o.getString("detail");
                                 for(int j=0;j<array.length();j++){
                                     JSONObject oo = array.getJSONObject(j);
                                     LatLng point = new LatLng(
