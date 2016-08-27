@@ -17,6 +17,7 @@ public class ScenicPicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scenicpic);
 
         ImageView image = (ImageView) findViewById(R.id.pic);
+        image.setImageResource(R.drawable.thackName);
 
         FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
