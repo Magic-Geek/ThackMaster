@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.model.LatLng;
 import com.hit.geek.thackmaster.adapter.ItemPagerAdapter;
 import com.hit.geek.thackmaster.bottomsheet.BottomSheetBehaviorGoogleMapsLike;
 import com.hit.geek.thackmaster.bottomsheet.RoadItemAdapter;
@@ -34,6 +35,8 @@ import com.hit.geek.thackmaster.define.Road;
 import com.hit.geek.thackmaster.http.AnShengApi;
 import com.hit.geek.thackmaster.http.ServerApi;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<PrepareData> dataList = new ArrayList<>();
     List<MarkerBean> markers = new ArrayList<>();
+    List<MarkerBean> lines = new ArrayList<>();
     Trace trace = new Trace();
 
     List<Road> items;
@@ -107,6 +111,32 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case GETTRACE:
                     trace = (Trace) msg.obj;
+                    List<MarkerBean> lines = new ArrayList<>();
+                    for(int i=0;i<trace.economyArray.length();i++){
+                        JSONObject o = trace.economy(i);
+                        List<MarkerBean> points = new ArrayList<>();
+                        if(o.has("path")){
+                            try {
+                                JSONArray array = o.getJSONArray("path");
+                                for(int j=0;j<array.length();j++){
+                                    JSONObject oo = array.getJSONObject(j);
+                                    LatLng point = new LatLng(
+                                            oo.getDouble("latitude"),
+                                            oo.getDouble("longitude")
+                                    );
+                                    MarkerBean markerBean = new MarkerBean("cline"+j,"SOMETHING",point);
+                                    points.add(markerBean);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            MarkerBean markerBean = new MarkerBean("fLINE"+i,"LINE",null);
+                            markerBean.children = points;
+                            lines.add(markerBean);
+                        }
+                    }
+                    map.draw(lines);
                     break;
             }
         }
