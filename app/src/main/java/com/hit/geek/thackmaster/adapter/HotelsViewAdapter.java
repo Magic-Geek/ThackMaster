@@ -53,7 +53,7 @@ public class HotelsViewAdapter extends RecyclerView.Adapter<HotelsViewAdapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,HotelInfoActivity.class);
-                intent.putExtra("item",position);
+                intent.putExtra("id",data.get(position).id);
                 context.startActivity(intent);
             }
         });

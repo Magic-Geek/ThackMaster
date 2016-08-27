@@ -90,7 +90,7 @@ public class ServerApi {
         });
     }
 
-    public static  void GetHotel(String id) {
+    public static  void GetHotel(String id,final Handler handler) {
         HttpsUtils.Get(host+"/api/hotel/" + id, null, new Callback.CommonCallback<HotelDetail>() {
 
             @Override
@@ -109,7 +109,7 @@ public class ServerApi {
             @Override
             public void onSuccess(HotelDetail result) {
                 // TODO Auto-generated method stub
-
+                handler.obtainMessage(2,result).sendToTarget();
             }
 
         });

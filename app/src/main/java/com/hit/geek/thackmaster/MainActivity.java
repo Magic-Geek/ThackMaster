@@ -140,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
                     map.draw(lines);
                     break;
                 case STARTHOTELACT:
+                    Intent intent2 = new Intent(MainActivity.this,HotelInfoActivity.class);
+                    intent2.putExtra("id",(String)msg.obj);
+                    startActivity(intent2);
                     break;
             }
         }
