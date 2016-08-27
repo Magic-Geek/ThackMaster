@@ -113,7 +113,7 @@
 <Button
     android:id="@+id/start"
     android:text="GO!"
-    android:background="#5677fc"
+    android:background="#009688"
     android:layout_width="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin"
     android:layout_height="40dp"/>

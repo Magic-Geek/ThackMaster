@@ -13,9 +13,9 @@ import com.hit.geek.thackmaster.view.View;
 public enum BluePrint {
     SOMETHING(DemoAction.class,DemoView.class, R.mipmap.ic_launcher,7),
     CITY(DemoAction.class,DemoView.class,R.drawable.city,7),
-    HOTEL(DemoAction.class,DemoView.class,R.drawable.hotel,10),
-    SCENIC(DemoAction.class,DemoView.class,R.drawable.scenic,10),
-    LINE(DemoAction.class,LineView.class,R.color.primary_dark,10);
+    HOTEL(DemoAction.class,DemoView.class,R.drawable.hotel,5),
+    SCENIC(DemoAction.class,DemoView.class,R.drawable.scenic,5),
+    LINE(DemoAction.class,LineView.class,R.color.primary_dark,4);
 
     Class action;
     Class view;

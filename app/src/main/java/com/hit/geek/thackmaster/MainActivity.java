@@ -18,8 +18,10 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.TextureMapView;
+import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
 import com.hit.geek.thackmaster.http.AnShengApi;
+import com.hit.geek.thackmaster.http.ServerApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
+    final static int GETINFOOFALLSPOTS = 2;
 
     List<PrepareData> dataList = new ArrayList<>();
+    List<MarkerBean> markers = new ArrayList<>();
 
     Handler handler = new Handler(){
         @Override
@@ -58,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 case GETINFOBYANSHENGAPI:
                     dataList = (List<PrepareData>) msg.obj;
                     break;
+                case GETINFOOFALLSPOTS:
+                    markers = (List<MarkerBean>) msg.obj;
+                    map.draw(markers);
+                    break;
             }
         }
     };
@@ -70,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         mMapView = (TextureMapView) findViewById(R.id.mapView);
@@ -84,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         map = new Map(this,mMapView,from,to);
         AnShengApi.GetKnowledge(to,handler);
+        ServerApi.GetSpots(handler);
 
         Button close = (Button) findViewById(R.id.close);
         title = (TextView) findViewById(R.id.title);
