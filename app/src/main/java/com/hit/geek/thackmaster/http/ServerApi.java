@@ -66,6 +66,30 @@ public class ServerApi {
         });
     }
 
+    public static void GetHotels(final Handler handler){
+        HttpsUtils.Get(host+"/api/hotel2", null, new Callback.CommonCallback<List<HotelDetail>>(){
+
+            @Override
+            public void onCancelled(CancelledException arg0) {}
+
+            @Override
+            public void onError(Throwable ex, boolean isCheck) {
+                Log.i("error2",ex.toString());
+            }
+
+            @Override
+            public void onFinished() {
+            }
+
+            @Override
+            public void onSuccess(List<HotelDetail> result) {
+                // TODO Auto-generated method stub
+                handler.obtainMessage(2,result).sendToTarget();
+                Log.i("onsucc","Onsuccess"+result);
+            }
+        });
+    }
+
     public static  void GetHotel(String id) {
         HttpsUtils.Get(host+"/api/hotel/" + id, null, new Callback.CommonCallback<HotelDetail>() {
 

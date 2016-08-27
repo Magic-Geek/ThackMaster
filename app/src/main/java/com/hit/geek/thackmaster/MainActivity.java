@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     final static int GETINFOOFALLSPOTS = 2;
     final static int GETTRACE = 3;
     final static int STARTSCENIVPICACT = 9;
+    final static int STARTHOTELACT = 10;
 
     List<PrepareData> dataList = new ArrayList<>();
     List<MarkerBean> markers = new ArrayList<>();
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     map.draw(markers);
                     break;
                 case STARTSCENIVPICACT:
-                    Intent intent = new Intent(MainActivity.this, ARActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ScenicPicActivity.class);
                     intent.putExtra("id",(String)msg.obj);
                     startActivity(intent);
                     break;
@@ -131,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     map.draw(lines);
+                    break;
+                case STARTHOTELACT:
                     break;
             }
         }
@@ -293,6 +296,10 @@ public class MainActivity extends AppCompatActivity {
             });
             message.startAnimation(anim);
             return true;
+        }
+        if(id == R.id.hotels){
+            Intent intent=new Intent(MainActivity.this,HotelsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
