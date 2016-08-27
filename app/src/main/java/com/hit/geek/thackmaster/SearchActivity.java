@@ -133,7 +133,7 @@ public class SearchActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                     }
-                },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),true);
+                },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),true).show();
             }
         });
 

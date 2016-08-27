@@ -17,6 +17,7 @@ import java.util.List;
 public class MarkerBean {
     public MarkerBean(String id,String type,LatLng point){
         this.id = id;
+        this.name = id;
         this.point = point;
         this.type = type;
     }

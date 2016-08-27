@@ -18,6 +18,7 @@ public class Element {
         this.data = bean;
 
         this.view.setElement(this);
+        this.action.setElement(this);
     }
 
     public Action getAction() {

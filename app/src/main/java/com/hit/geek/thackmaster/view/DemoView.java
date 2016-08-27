@@ -40,7 +40,7 @@ public class DemoView implements View{
                 .bgColor(0xAAFFFF00)
                 .fontSize(24)
                 .fontColor(0xFFFF00FF)
-                .text(element.getData().id)
+                .text(element.getData().name)
                 .rotate(0)
                 .position(element.getData().point);
         text = mBaiduMap.addOverlay(textOption);

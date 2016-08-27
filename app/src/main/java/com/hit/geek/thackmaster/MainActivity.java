@@ -22,13 +22,16 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.TextureMapView;
 import com.hit.geek.thackmaster.adapter.ItemPagerAdapter;
 import com.hit.geek.thackmaster.bottomsheet.BottomSheetBehaviorGoogleMapsLike;
 import com.hit.geek.thackmaster.bottomsheet.RoadItemAdapter;
+import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
 import com.hit.geek.thackmaster.define.Road;
 import com.hit.geek.thackmaster.http.AnShengApi;
+import com.hit.geek.thackmaster.http.ServerApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
+    final static int GETINFOOFALLSPOTS = 2;
+    final static int STARTSCENIVPICACT = 9;
 
     List<PrepareData> dataList = new ArrayList<>();
+    List<MarkerBean> markers = new ArrayList<>();
 
     List<Road> items;
 
@@ -85,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
                 case GETINFOBYANSHENGAPI:
                     dataList = (List<PrepareData>) msg.obj;
                     break;
+                case GETINFOOFALLSPOTS:
+                    markers = (List<MarkerBean>) msg.obj;
+                    map.draw(markers);
+                    break;
+                case STARTSCENIVPICACT:
+                    Intent intent = new Intent(MainActivity.this, ARActivity.class);
+                    intent.putExtra("id",(String)msg.obj);
+                    startActivity(intent);
+                    break;
             }
         }
     };
@@ -97,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         mMapView = (TextureMapView) findViewById(R.id.mapView);
@@ -109,8 +126,11 @@ public class MainActivity extends AppCompatActivity {
         String to = intent.getStringExtra("to");
         String time = intent.getStringExtra("time");
 
-        map = new Map(this,mMapView,from,to);
-        AnShengApi.GetKnowledge(to, handler);
+
+        map = new Map(this,handler,mMapView,from,to);
+        AnShengApi.GetKnowledge(to,handler);
+        ServerApi.GetSpots(handler);
+
 
         Button close = (Button) findViewById(R.id.close);
         title = (TextView) findViewById(R.id.title);
