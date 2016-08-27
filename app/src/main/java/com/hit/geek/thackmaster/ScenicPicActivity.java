@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,9 +16,12 @@ public class ScenicPicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scenicpic);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.sight_toolbar);
+        toolbar.setTitle("当前景点");
+        setSupportActionBar(toolbar);
 
         ImageView image = (ImageView) findViewById(R.id.pic);
-        image.setImageResource(R.drawable.thackName);
+        image.setImageResource(R.drawable.thackname);
 
         FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {

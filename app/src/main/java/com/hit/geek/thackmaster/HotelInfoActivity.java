@@ -1,26 +1,17 @@
 package com.hit.geek.thackmaster;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.Text;
-import com.hit.geek.thackmaster.action.HotelAction;
-import com.hit.geek.thackmaster.adapter.HotelsViewAdapter;
 import com.hit.geek.thackmaster.define.HotelDetail;
 import com.hit.geek.thackmaster.http.ServerApi;
 
 import org.xutils.x;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HotelInfoActivity extends AppCompatActivity {
 
@@ -51,6 +42,11 @@ public class HotelInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
+
+//        final Toolbar toolbar = (Toolbar) findViewById(R.id.hotel_toolbar);
+//        toolbar.setTitle("当前酒店信息");
+//        setSupportActionBar(toolbar);
+
         id=getIntent().getStringExtra("id");
 
         image = (ImageView)findViewById(R.id.hotel_info_image);

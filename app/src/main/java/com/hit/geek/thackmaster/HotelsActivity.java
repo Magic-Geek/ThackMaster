@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.hit.geek.thackmaster.adapter.HotelsViewAdapter;
 import com.hit.geek.thackmaster.define.HotelDetail;
@@ -44,6 +45,10 @@ public class HotelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotels);
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.hotels_toolbar);
+        toolbar.setTitle("酒店列表");
+        setSupportActionBar(toolbar);
 
 //        final View.OnClickListener listener=new View.OnClickListener() {
 //            @Override
