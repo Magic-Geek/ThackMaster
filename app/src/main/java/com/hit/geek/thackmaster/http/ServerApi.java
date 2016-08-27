@@ -2,6 +2,7 @@ package com.hit.geek.thackmaster.http;
 
 import android.util.Log;
 
+import com.hit.geek.thackmaster.define.HotelDetail;
 import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.utils.HttpsUtils;
 
@@ -31,6 +32,32 @@ public class ServerApi {
             @Override
             public void onSuccess(MarkerBean result) {
                 // TODO Auto-generated method stub
+
+            }
+
+        });
+    }
+
+    public static  void GetHotel(String id) {
+        HttpsUtils.Get("/api/hotel/" + id, null, new Callback.CommonCallback<HotelDetail>() {
+
+            @Override
+            public void onCancelled(Callback.CancelledException arg0) {
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isCheck) {
+                Log.i("error", "json lost");
+            }
+
+            @Override
+            public void onFinished() {
+            }
+
+            @Override
+            public void onSuccess(HotelDetail result) {
+                // TODO Auto-generated method stub
+
             }
 
         });

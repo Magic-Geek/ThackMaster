@@ -8,16 +8,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-
 import com.baidu.mapapi.SDKInitializer;
 import com.hit.geek.thackmaster.adapter.IntroAdapter;
-import com.hit.geek.thackmaster.define.PrepareData;
-
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by eason on 8/27/16.
@@ -44,7 +37,6 @@ public class IntroActivity extends AppCompatActivity {
                 spanCount,
                 StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLayoutManager);
-        //构建一个临时数据源
         for (int i = 0; i < 100; i++) {
             items.add("i:" + i);
         }
