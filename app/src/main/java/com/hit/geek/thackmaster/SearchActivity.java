@@ -1,6 +1,8 @@
 package com.hit.geek.thackmaster;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 
@@ -28,13 +31,12 @@ public class SearchActivity extends AppCompatActivity {
     private String arriveLocation;
 
     private EditText dateEditText;
-    private Button dateButton;
     private EditText timeEditText;
-    private Button timeButton;
+    private Button start;
 
-    private static int departYear;
-    private static int departMonth;
-    private static int departDay;
+    private int departYear;
+    private int departMonth;
+    private int departDay;
 
 
 
@@ -101,19 +103,18 @@ public class SearchActivity extends AppCompatActivity {
 
 
         dateEditText = (EditText)findViewById(R.id.date_edittext);
-        dateButton = (Button)findViewById(R.id.date_button);
 
         final Calendar calendar=Calendar.getInstance();
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                        SearchActivity.departYear=year;
-                        SearchActivity.departMonth=monthOfYear+1;
-                        SearchActivity.departDay=dayOfMonth;
+                        departYear=year;
+                        departMonth=monthOfYear+1;
+                        departDay=dayOfMonth;
 
                         dateEditText.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
                     }
@@ -123,16 +124,29 @@ public class SearchActivity extends AppCompatActivity {
 
 
         timeEditText = (EditText)findViewById(R.id.time_edittext);
-        timeButton = (Button)findViewById(R.id.time_button);
 
-//        timeButton.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                new TimePickerDialog(SearchActivity.this,new TimePickerDialog.OnTimeSetListener(){
-//
-//                })
-//            }
-//        });
+        timeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(SearchActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                    }
+                },calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE),true);
+            }
+        });
+
+        start = (Button) findViewById(R.id.start);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this,MainActivity.class);
+                intent.putExtra("from",departLocation);
+                intent.putExtra("to",arriveLocation);
+                intent.putExtra("time",departYear+"-"+departMonth+"-"+departDay);
+                startActivity(intent);
+            }
+        });
     }
 }

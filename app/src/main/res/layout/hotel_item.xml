@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:clickable="true"
         android:id="@+id/cv_item"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
@@ -40,15 +41,43 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/hotel_tittle"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/hotel_name"
                     android:text="Hello"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:ellipsize="end"
+                android:id="@+id/hotel_address"
+                android:text="info"
+                />
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/hotel_info"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/hotel_phone"
+                    android:text="info"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:id="@+id/hotel_desc"
+                    android:text="info                                                                              "
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/hotel_price"
                     android:text="info"
                     />
             </LinearLayout>

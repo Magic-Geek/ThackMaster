@@ -15,9 +15,33 @@ import java.util.List;
  * Created by eason on 8/26/16.
  */
 public class ServerApi {
-    public static String host = "http://123.206.220.49:8080";
+    public static String host = "http://123.206.220.49";
 
-    public static void GetSpots(){
+    public static void GetTrace(){
+        HttpsUtils.Get("/api/trace", null, new Callback.CommonCallback<MarkerBean>(){
+
+            @Override
+            public void onCancelled(CancelledException arg0) {}
+
+            @Override
+            public void onError(Throwable ex, boolean isCheck) {
+                Log.i("error","json lost");
+            }
+
+            @Override
+            public void onFinished() {
+            }
+
+            @Override
+            public void onSuccess(MarkerBean result) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+    }
+
+    public static void GetHotels(){
         HttpsUtils.Get("/api/hotel", null, new Callback.CommonCallback<MarkerBean>(){
 
             @Override
@@ -49,7 +73,7 @@ public class ServerApi {
 
             @Override
             public void onError(Throwable ex, boolean isCheck) {
-                Log.i("error","json lost");
+                Log.i("error2",ex.toString());
             }
 
             @Override
@@ -60,8 +84,8 @@ public class ServerApi {
             public void onSuccess(List<HotelDetail> result) {
                 // TODO Auto-generated method stub
                 handler.obtainMessage(2,result).sendToTarget();
+                Log.i("onsucc","Onsuccess"+result);
             }
-
         });
     }
 
