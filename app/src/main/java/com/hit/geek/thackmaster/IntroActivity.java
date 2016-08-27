@@ -2,12 +2,14 @@ package com.hit.geek.thackmaster;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.hit.geek.thackmaster.adapter.IntroAdapter;
 import java.util.ArrayList;
 
@@ -38,25 +40,14 @@ public class IntroActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         adapter = new IntroAdapter();
         recyclerView.setAdapter(adapter);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_intro, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.travel) {
-            Intent intent = new Intent(IntroActivity.this,SearchActivity.class);
-            this.startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        FloatingActionButton travel = (FloatingActionButton) findViewById(R.id.travel);
+        travel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IntroActivity.this,SearchActivity.class);
+                IntroActivity.this.startActivity(intent);
+            }
+        });
     }
 }
