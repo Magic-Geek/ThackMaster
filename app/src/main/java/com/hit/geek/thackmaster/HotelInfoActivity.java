@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.Text;
+import com.hit.geek.thackmaster.action.HotelAction;
 import com.hit.geek.thackmaster.adapter.HotelsViewAdapter;
 import com.hit.geek.thackmaster.define.HotelDetail;
 import com.hit.geek.thackmaster.http.ServerApi;
@@ -23,8 +24,8 @@ import java.util.List;
 
 public class HotelInfoActivity extends AppCompatActivity {
 
-    List<HotelDetail> hotelDetails=new ArrayList<HotelDetail>();
-    private int itemID=0;
+    private String id;
+    private HotelDetail hotelDetal;
 
     private ImageView image;
     private TextView name;
@@ -32,11 +33,25 @@ public class HotelInfoActivity extends AppCompatActivity {
     private TextView phone;
     private TextView describe;
     private TextView price;
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==2){
+                if(msg.obj!=null){
+                    hotelDetal=(HotelDetail)(msg.obj);
+                    setCurrentData(hotelDetal);
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        itemID=getIntent().getIntExtra("item",0);
+        id=getIntent().getStringExtra("id");
 
         image = (ImageView)findViewById(R.id.hotel_info_image);
         name = (TextView)findViewById(R.id.hotel_info_name);
@@ -45,20 +60,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         price=(TextView)findViewById(R.id.hotel_info_price);
         describe=(TextView)findViewById(R.id.hotel_info_describe);
 
-        Handler handler=new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if(msg.what==2){
-                    if(msg.obj!=null){
-                        hotelDetails=(List<HotelDetail>)(msg.obj);
-                        setCurrentData(hotelDetails.get(itemID));
-//                        Log.i("detail","ddd : "+msg.obj);
-                    }
-                }
-            }
-        };
-        ServerApi.GetHotels(handler);
+        ServerApi.GetHotel(id,handler);
     }
 
     public void setCurrentData(HotelDetail detail){
