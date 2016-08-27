@@ -70,10 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-
-        Map.writeConfigFile(this);
 
         mMapView = (TextureMapView) findViewById(R.id.mapView);
         message = (CardView) findViewById(R.id.message);
