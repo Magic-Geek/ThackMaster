@@ -4,25 +4,29 @@ import com.hit.geek.thackmaster.R;
 import com.hit.geek.thackmaster.action.Action;
 import com.hit.geek.thackmaster.action.DemoAction;
 import com.hit.geek.thackmaster.view.DemoView;
+import com.hit.geek.thackmaster.view.LineView;
 import com.hit.geek.thackmaster.view.View;
 
 /**
  * Created by eason on 8/22/16.
  */
 public enum BluePrint {
-    SOMETHING(DemoAction.class,DemoView.class, R.mipmap.ic_launcher),
-    CITY(DemoAction.class,DemoView.class,R.drawable.city),
-    HOTEL(DemoAction.class,DemoView.class,R.drawable.hotel),
-    SCENIC(DemoAction.class,DemoView.class,R.drawable.scenic);
+    SOMETHING(DemoAction.class,DemoView.class, R.mipmap.ic_launcher,7),
+    CITY(DemoAction.class,DemoView.class,R.drawable.city,7),
+    HOTEL(DemoAction.class,DemoView.class,R.drawable.hotel,10),
+    SCENIC(DemoAction.class,DemoView.class,R.drawable.scenic,10),
+    LINE(DemoAction.class,LineView.class,R.color.primary_dark,10);
 
     Class action;
     Class view;
     int resource;
+    int zIndex;
 
-    BluePrint(Class<? extends Action> action,Class<? extends View> view,int resource){
+    BluePrint(Class<? extends Action> action,Class<? extends View> view,int resource,int zIndex){
         this.action = action;
         this.view = view;
         this.resource = resource;
+        this.zIndex = zIndex;
     }
 
     public Action createAction() {
