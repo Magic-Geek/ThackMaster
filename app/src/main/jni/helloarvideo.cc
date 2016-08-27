@@ -116,6 +116,11 @@ void HelloARVideo::render()
                     video->openTransparentVideoFile("home.mp4", texid[1]);
                     video_renderer = renderer[1];
                 }
+                else if(frame.targets()[0].target().name() == std::string("thackname2") && texid[2]) {
+                    video = new ARVideo;
+                    video->openTransparentVideoFile("home.mp4", texid[2]);
+                    video_renderer = renderer[2];
+                }
 
             }
             if (video) {
