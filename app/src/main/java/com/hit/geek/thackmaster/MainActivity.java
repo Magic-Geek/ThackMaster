@@ -29,11 +29,8 @@ import com.hit.geek.thackmaster.bottomsheet.BottomSheetBehaviorGoogleMapsLike;
 import com.hit.geek.thackmaster.bottomsheet.RoadItemAdapter;
 import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
-<<<<<<< HEAD
 import com.hit.geek.thackmaster.define.Trace;
-=======
 import com.hit.geek.thackmaster.define.Road;
->>>>>>> 85d42aa6187ebdf278875d6ff36cedd2392b93d8
 import com.hit.geek.thackmaster.http.AnShengApi;
 import com.hit.geek.thackmaster.http.ServerApi;
 
@@ -110,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case GETTRACE:
                     trace = (Trace) msg.obj;
-                    JSONObject o1 = trace.economy(0);
-                    JSONObject o2 = trace.fast(1);
                     break;
             }
         }
