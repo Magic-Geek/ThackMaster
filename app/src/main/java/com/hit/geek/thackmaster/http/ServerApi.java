@@ -18,7 +18,7 @@ public class ServerApi {
     public static String host = "http://123.206.220.49";
 
     public static void GetTrace(){
-        HttpsUtils.Get(host+"/api/trace", null, new Callback.CommonCallback<MarkerBean>(){
+        HttpsUtils.Get(host+"/api/Trace", null, new Callback.CommonCallback<MarkerBean>(){
 
             @Override
             public void onCancelled(CancelledException arg0) {}

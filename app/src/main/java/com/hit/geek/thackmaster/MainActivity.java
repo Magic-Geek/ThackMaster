@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.TextureMapView;
+import com.hit.geek.thackmaster.action.ScenicAction;
 import com.hit.geek.thackmaster.define.MarkerBean;
 import com.hit.geek.thackmaster.define.PrepareData;
 import com.hit.geek.thackmaster.http.AnShengApi;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     final static int MESSAGE_DISPEAR = 0;
     final static int GETINFOBYANSHENGAPI = 1;
     final static int GETINFOOFALLSPOTS = 2;
+    final static int STARTSCENIVPICACT = 9;
 
     List<PrepareData> dataList = new ArrayList<>();
     List<MarkerBean> markers = new ArrayList<>();
@@ -66,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                     markers = (List<MarkerBean>) msg.obj;
                     map.draw(markers);
                     break;
+                case STARTSCENIVPICACT:
+                    Intent intent = new Intent(MainActivity.this, ARActivity.class);
+                    intent.putExtra("id",(String)msg.obj);
+                    startActivity(intent);
+                    break;
             }
         }
     };
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         String to = intent.getStringExtra("to");
         String time = intent.getStringExtra("time");
 
-        map = new Map(this,mMapView,from,to);
+        map = new Map(this,handler,mMapView,from,to);
         AnShengApi.GetKnowledge(to,handler);
         ServerApi.GetSpots(handler);
 

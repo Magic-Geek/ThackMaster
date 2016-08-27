@@ -3,6 +3,7 @@ package com.hit.geek.thackmaster;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -56,10 +57,12 @@ public class Map implements ClusterManager.ControlCityOverlay {
     List<Element> elements;
     Overlay person;
     Context context;
+    Handler handler;
 
-    public Map(Context context, final TextureMapView mapView, final String start, final String end){
+    public Map(Context context, Handler handler ,final TextureMapView mapView, final String start, final String end){
         this.mapView = mapView;
         this.context = context;
+        this.handler = handler;
 
         clusterManager = new ClusterManager(context,mapView.getMap());
         clusterManager.setControlCityOverlayInterface(this);
@@ -155,7 +158,7 @@ public class Map implements ClusterManager.ControlCityOverlay {
 
                 for(Element m:elements){
                     if(m.getData().id.equals(id)){
-                        m.getAction().onClick();
+                        m.getAction().onClick(context,handler);
                         break;
                     }
                 }
