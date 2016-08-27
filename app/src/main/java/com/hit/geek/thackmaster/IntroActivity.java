@@ -15,6 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by eason on 8/27/16.
  */
+
 public class IntroActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     IntroAdapter adapter;

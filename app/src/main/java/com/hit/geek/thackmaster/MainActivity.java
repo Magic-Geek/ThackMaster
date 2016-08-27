@@ -1,5 +1,6 @@
 package com.hit.geek.thackmaster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -76,8 +77,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        map = new Map(this,mMapView,"北京","杭州");
-        AnShengApi.GetKnowledge("杭州",handler);
+        Intent intent = getIntent();
+        String from = intent.getStringExtra("from");
+        String to = intent.getStringExtra("to");
+        String time = intent.getStringExtra("time");
+
+        map = new Map(this,mMapView,from,to);
+        AnShengApi.GetKnowledge(to,handler);
 
         Button close = (Button) findViewById(R.id.close);
         title = (TextView) findViewById(R.id.title);
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
     }
